@@ -23,8 +23,6 @@ export const EMOTION_COLORS: Record<string, string> = {
   '未知的情绪': '#B0B4C0',
 };
 
-const INTENSIFIERS = ['特别', '非常', '超级', '极其', '极度', '太', '很', '好'];
-
 interface Rule {
   keywords: string[];
   normal: EmotionResult;
@@ -32,24 +30,139 @@ interface Rule {
 }
 
 const RULES: Rule[] = [
-  { keywords: ['激动', '兴奋', '刺激'], normal: { mood: '激动', color: '#FF9858' }, intense: { mood: '很激动', color: '#FFB070' } },
-  { keywords: ['幸福', '甜蜜', '温暖'], normal: { mood: '幸福', color: '#F5B8D8' }, intense: { mood: '很幸福', color: '#F8A0C8' } },
-  { keywords: ['开心', '高兴', '快乐', '太好了', '真好', '哈哈', '嘻嘻', '乐观'], normal: { mood: '开心', color: '#FFD860' }, intense: { mood: '特别开心', color: '#FFEC98' } },
-  { keywords: ['累', '困', '忙', '倦', '疲惫'], normal: { mood: '疲惫', color: '#A098F0' }, intense: { mood: '很疲惫', color: '#8878E0' } },
-  { keywords: ['生气', '怒', '恨', '讨厌', '烦死了', '火大', '恼怒', '气愤', '烦躁', '恶心'], normal: { mood: '愤怒', color: '#F07D6B' }, intense: { mood: '很愤怒', color: '#E05540' } },
-  { keywords: ['一个人', '孤单', '寂寞', '孤独'], normal: { mood: '孤独', color: '#7098E0' }, intense: { mood: '很孤独', color: '#5880D0' } },
-  { keywords: ['怕', '担心', '紧张', '焦虑', '不安', '害怕'], normal: { mood: '焦虑', color: '#C0A0E0' }, intense: { mood: '很焦虑', color: '#A888D8' } },
-  { keywords: ['糟糕', '失望', '遗憾', '可惜', '没希望', '灰心', '丧'], normal: { mood: '失望', color: '#8898C8' }, intense: { mood: '很失望', color: '#7080B8' } },
-  { keywords: ['难过', '伤心', '哭', '心碎', '难受', '眼泪', '悲伤'], normal: { mood: '伤心', color: '#7898E0' }, intense: { mood: '很伤心', color: '#5C80D0' } },
-  { keywords: ['平静', '放松', '舒服', '满足', '安心', '惬意', '淡定'], normal: { mood: '平静', color: '#78E0D0' }, intense: { mood: '平静', color: '#78E0D0' } },
+  // —— 平静 / 放松 ——————————————————
+  {
+    keywords: ['平静', '放松', '舒服', '满足', '安心', '惬意', '淡定', '宁静', '安稳', '平和', '清静', '舒适', '自在', '踏实'],
+    normal: { mood: '平静', color: '#78E0D0' },
+    intense: { mood: '平静', color: '#78E0D0' },
+  },
+
+  // —— 开心 / 高兴 ——————————————————
+  {
+    keywords: [
+      '开心', '高兴', '快乐', '太好了', '真好', '哈哈', '嘻嘻', '乐观',
+      '不错', '挺好', '很好', '还行', '好极了', '棒', '赞', '愉快', '爽',
+      '欣喜', '欢快', '痛快', '心满意足', '美滋滋', '乐乐', '愉悦', '喜悦',
+      '心情好', '心情不错', '心情挺好', '心情很好', '蛮好', '不赖', '蛮不错',
+    ],
+    normal: { mood: '开心', color: '#FFD860' },
+    intense: { mood: '特别开心', color: '#FFEC98' },
+  },
+
+  // —— 幸福 / 甜蜜 ——————————————————
+  {
+    keywords: [
+      '幸福', '甜蜜', '温暖', '美好', '感恩', '幸运', '温馨',
+      '被爱', '珍视', '感动', '暖', '治愈', '心动',
+      '好幸福', '真幸福', '甜甜的',
+    ],
+    normal: { mood: '幸福', color: '#F5B8D8' },
+    intense: { mood: '很幸福', color: '#F8A0C8' },
+  },
+
+  // —— 激动 / 兴奋 ——————————————————
+  {
+    keywords: ['激动', '兴奋', '刺激', '期待', '热血', '沸腾', '超级期待', '迫不及待'],
+    normal: { mood: '激动', color: '#FF9858' },
+    intense: { mood: '很激动', color: '#FFB070' },
+  },
+
+  // —— 疲惫 / 累 ——————————————————
+  {
+    keywords: [
+      '累', '困', '忙', '倦', '疲惫', '筋疲力尽', '没力气', '乏了',
+      '累死了', '累坏了', '好累', '好困', '好忙', '好倦',
+      '身心俱疲', '透支', '不想动', '没精神', '没劲儿', '没有力气',
+      '工作太累', '加班', '熬夜',
+    ],
+    normal: { mood: '疲惫', color: '#A098F0' },
+    intense: { mood: '很疲惫', color: '#8878E0' },
+  },
+
+  // —— 愤怒 / 生气 ——————————————————
+  {
+    keywords: [
+      '生气', '怒', '恨', '讨厌', '烦死了', '火大', '恼怒', '气愤', '烦躁', '恶心',
+      '气死', '气炸', '可恨', '窝火', '不爽', '惹毛', '受够了',
+      '想骂人', '忍不了', '憋屈', '来气',
+    ],
+    normal: { mood: '愤怒', color: '#F07D6B' },
+    intense: { mood: '很愤怒', color: '#E05540' },
+  },
+
+  // —— 孤独 / 寂寞 ——————————————————
+  {
+    keywords: [
+      '一个人', '孤单', '寂寞', '孤独', '独处', '没人陪', '冷冷清清',
+      '落单', '无人', '没有人', '感觉自己一个人',
+    ],
+    normal: { mood: '孤独', color: '#7098E0' },
+    intense: { mood: '很孤独', color: '#5880D0' },
+  },
+
+  // —— 焦虑 / 不安 ——————————————————
+  {
+    keywords: [
+      '怕', '担心', '紧张', '焦虑', '不安', '害怕', '慌',
+      '恐慌', '不知所措', '坐立不安', '心慌', '七上八下', '忐忑',
+      '压力', '压力大', '睡不着', '胡思乱想', '瞎想',
+    ],
+    normal: { mood: '焦虑', color: '#C0A0E0' },
+    intense: { mood: '很焦虑', color: '#A888D8' },
+  },
+
+  // —— 伤心 / 难过 ——————————————————
+  {
+    keywords: [
+      '难过', '伤心', '哭', '心碎', '难受', '眼泪', '悲伤', '流泪',
+      '心痛', '心酸', '好难过', '好伤心', '好想哭', '想哭', '忍不住哭',
+      '不好受', '抑郁', '低落', '低沉', '消沉', '情绪低落', '心情不好',
+      '心情差', '心情很差', '心情很不好', '状态差', '状态不好',
+    ],
+    normal: { mood: '伤心', color: '#7898E0' },
+    intense: { mood: '很伤心', color: '#5C80D0' },
+  },
+
+  // —— 失望 / 遗憾 ——————————————————
+  {
+    keywords: [
+      '糟糕', '失望', '遗憾', '可惜', '没希望', '灰心', '丧',
+      '无奈', '后悔', '早知道', '没办法', '无力', '心灰意冷',
+      '好失望', '真失望', '没戏', '完蛋',
+      '郁闷', '烦', '烦躁', '无聊', '没意思', '没劲', '无趣',
+      '什么都不想干', '什么都不想做', '提不起劲',
+    ],
+    normal: { mood: '失望', color: '#8898C8' },
+    intense: { mood: '很失望', color: '#7080B8' },
+  },
+];
+
+// 语气加强词（匹配到则升档为强度变体）
+const INTENSIFIERS = ['特别', '非常', '超级', '极其', '极度', '太', '很', '好', '真', '要命', '死了', '坏了', '透了', '爆了'];
+
+// 正面/负面极性兜底词（所有具体规则都没命中时使用）
+const POSITIVE_POLARITY = ['好', '棒', '赞', '不错', '不错呀', '挺好', '很好', '还行', '爽', '妙', '厉害', '牛', '优秀', '完美'];
+const NEGATIVE_POLARITY = [
+  '不好', '差', '糟糕', '坏', '烂', '惨', '糟', '苦', '痛', '难受', '糟心',
+  '不怎么样', '不行', '笨', '错', '失败', '坑', '倒了霉',
 ];
 
 export function localClassify(text: string): EmotionResult {
   const hasIntensifier = INTENSIFIERS.some((w) => text.includes(w));
+
   for (const rule of RULES) {
     if (rule.keywords.some((kw) => text.includes(kw))) {
       return hasIntensifier ? rule.intense : rule.normal;
     }
   }
+
+  // 兜底：极性词判断
+  if (POSITIVE_POLARITY.some((w) => text.includes(w))) {
+    return { mood: '平静', color: '#78E0D0' };
+  }
+  if (NEGATIVE_POLARITY.some((w) => text.includes(w))) {
+    return { mood: '失望', color: '#8898C8' };
+  }
+
   return { mood: '未知的情绪', color: '#B0B4C0' };
 }
