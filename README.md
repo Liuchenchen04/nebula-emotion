@@ -1,73 +1,112 @@
-# React + TypeScript + Vite
+# 星云 · 情绪转换器
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> 将负面情绪「发射」进深空——文字粉碎为粒子汇入星云，获得被倾听、被接纳的治愈体验。
 
-Currently, two official plugins are available:
+沉浸式治愈 Web 应用，纯前端单页，数据仅存本地浏览器，不上传任何服务器。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 打开方式
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 方式一：GitHub Pages（推荐发给朋友）
 
-## Expanding the ESLint configuration
+直接浏览器打开：
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+https://liuchenchen04.github.io/nebula-emotion/
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+第一次打开会弹出 DeepSeek API Key 输入框。可以填入自己的 Key，也可以点击「跳过，使用基础模式」直接体验（基础模式下情绪识别用本地关键词匹配，同样可用）。
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 方式二：本地 CMD 启动
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+# 1. 进入项目目录
+cd "D:\Desktop\简历\星云agent\nebula-emotion"
+
+# 2. 安装依赖（仅首次需要）
+pnpm install
+
+# 3. 启动开发服务器
+pnpm dev
 ```
+
+浏览器会自动打开 `http://localhost:5173`，修改代码实时热更新。
+
+如果想预览生产构建（和 GitHub Pages 上看到的一致）：
+
+```bash
+pnpm build
+pnpm preview
+```
+
+---
+
+## 功能
+
+### 情绪发射台
+
+在输入框中写下任何你想倾诉的话——抱怨、烦恼、焦虑、或者开心的瞬间。点击右侧 ✦ 按钮或按 Enter 键发射。
+
+### 粒子星云
+
+文字被「粉碎」为 60–120 个粒子，先向外爆裂，再在引力作用下缓慢聚合成旋转的彩色星云。
+
+- 星云颜色由 AI 分析你的情绪后自动匹配（11 种情绪 × 强度变体）
+- 暖色系对应积极情绪（暖橙、柔粉、亮金、青绿）
+- 蓝紫色系对应消极情绪（柔紫、深海蓝、灰紫）
+- 愤怒保留珊瑚暖色
+- 粒子持续旋转闪烁，模拟真实星云的立体层次感
+
+### AI 情绪识别
+
+通过 DeepSeek API 分析每次倾诉的情绪，自动标注情绪标签和对应颜色。
+
+- 支持情绪强度区分（如「开心」→「特别开心」，「焦虑」→「很焦虑」）
+- API 调用失败时自动降级为本地关键词匹配，不会报错中断
+
+### 记忆面板
+
+所有倾诉自动保存为「记忆」，包含情绪标签、颜色、时间戳。点击底部 ☰ 按钮从右侧滑入查看。
+
+- 最新记忆显示在最上方
+- 可删除不需要的记忆
+- 数据仅存在浏览器 localStorage 中
+
+### 治愈回响
+
+点击底部 ✦ 回忆按钮，AI 会随机挑选一条历史记忆，生成一句不超过 40 字的温柔回应，像一位了解你的宇宙老友在倾听。
+
+- 打字机动画逐字展现回应
+- AI 调用失败时使用内置的 45+ 条降级回复模板
+
+### 环境音乐
+
+页面加载时自动播放环境氛围音乐（低音量淡入），右下角 ♪ 按钮可随时切换播放/暂停。
+
+### 意见反馈
+
+左下角提供反馈入口，输入意见建议保存到本地。
+
+---
+
+## 技术栈
+
+| 层级 | 选型 |
+|------|------|
+| 框架 | Vite 8 + React 19 + TypeScript 6 |
+| 样式 | Tailwind CSS 4 |
+| 3D 渲染 | React Three Fiber 9 + Three.js |
+| 状态管理 | Zustand 5 |
+| 音频 | Howler.js |
+| AI | DeepSeek API（`deepseek-chat`） |
+| 包管理 | pnpm |
+
+---
+
+## 隐私说明
+
+- 所有数据（记忆、API Key、反馈）仅存储在浏览器 localStorage
+- 不上传任何服务器，不收集任何个人信息
+- API Key 仅用于调用 DeepSeek API，不经过第三方
+- 可随时清除浏览器数据来删除所有记录
